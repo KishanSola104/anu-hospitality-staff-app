@@ -1,10 +1,3 @@
-/* -------------------------------------------------------
-   Application Main JavaScript
-   Handles:
-   - Mobile navigation toggle
-   - Home hero image slider
-   - Scroll reveal animations
-------------------------------------------------------- */
 
 /* import './bootstrap'; */
 
@@ -86,6 +79,51 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     window.addEventListener("scroll", revealOnScroll);
-    revealOnScroll(); // Run once on page load
+    revealOnScroll(); 
+/* About Section over */
+
+/* Services Section js  */
+ const cards = document.querySelectorAll(".service-card");
+    const btn = document.querySelector(".services-view-more");
+
+    if (!cards.length || !btn) return;
+
+    let expanded = false;
+
+    // Determine visible cards based on screen size
+    function getVisibleCount() {
+        const width = window.innerWidth;
+
+        if (width >= 992) return 6;   // Laptop
+        if (width >= 576) return 4;   // Tablet
+        return 3;                     // Mobile
+    }
+
+    function updateVisibility() {
+        const visibleCount = expanded ? cards.length : getVisibleCount();
+
+        cards.forEach((card, index) => {
+            card.classList.toggle("is-hidden", index >= visibleCount);
+        });
+
+        btn.textContent = expanded ? "View Less" : "View More";
+    }
+
+    // Initial state
+    updateVisibility();
+
+    // Button click
+    btn.addEventListener("click", () => {
+        expanded = !expanded;
+        updateVisibility();
+    });
+
+    // Handle screen resize (important for responsive behavior)
+    window.addEventListener("resize", () => {
+        if (!expanded) {
+            updateVisibility();
+        }
+    });
+    /* Services Section over */
 
 });
