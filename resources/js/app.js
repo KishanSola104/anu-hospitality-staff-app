@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (slides.length > 0) {
 
-        /* Assign background images from data attribute */
+        
         slides.forEach(slide => {
             const bgImage = slide.getAttribute("data-bg");
             if (bgImage) {
@@ -90,13 +90,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let expanded = false;
 
-    // Determine visible cards based on screen size
+    
     function getVisibleCount() {
         const width = window.innerWidth;
 
-        if (width >= 992) return 6;   // Laptop
-        if (width >= 576) return 4;   // Tablet
-        return 3;                     // Mobile
+        if (width >= 992) return 6;   
+        if (width >= 576) return 4;   
+        return 3;                     
     }
 
     function updateVisibility() {
@@ -109,16 +109,16 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.textContent = expanded ? "View Less" : "View More";
     }
 
-    // Initial state
+    
     updateVisibility();
 
-    // Button click
+    
     btn.addEventListener("click", () => {
         expanded = !expanded;
         updateVisibility();
     });
 
-    // Handle screen resize (important for responsive behavior)
+   
     window.addEventListener("resize", () => {
         if (!expanded) {
             updateVisibility();
