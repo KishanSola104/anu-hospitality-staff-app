@@ -54,7 +54,7 @@
 
         </div>
 
-        <a href="#" class="btn btn-primary">
+        <a href="{{ route('contact') }}#contact-form" class="btn btn-primary">
             Join Us
         </a>
 

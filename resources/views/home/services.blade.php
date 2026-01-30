@@ -94,7 +94,7 @@
         <!-- Buttons -->
         <div class="services-buttons">
             <button class="btn btn-secondary services-view-more">View More</button>
-            <a href="#" class="btn btn-secondary">Connect Us</a>
+            <a href="{{ route('contact') }}#contact-form" class="btn btn-secondary">Connect Us</a>
         </div>
 
     </div>

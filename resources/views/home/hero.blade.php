@@ -24,7 +24,7 @@
 
     <!-- Constant Center Button -->
     <div class="hero-cta">
-        <a href="#" class="btn-hero">
+        <a href="{{ route('contact') }}#contact-form" class="btn-hero">
             Get Quote
         </a>
     </div>
