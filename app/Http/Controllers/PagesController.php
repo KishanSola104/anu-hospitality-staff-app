@@ -33,19 +33,7 @@ class PagesController extends Controller
         return view('pages.vacancies');
     }
 
-    /* ======================
-       AUTH PAGES (STATIC)
-    ====================== */
-
-    public function login()
-    {
-        return view('auth.login');
-    }
-
-    public function register()
-    {
-        return view('auth.register');
-    }
+    
 
     /* ======================
        POLICY PAGES

@@ -1587,3 +1587,221 @@ header {
         font-size: 0.95rem;
     }
 }
+
+/* Policy Pages css Over */
+
+/* =========================================
+   AUTH PAGES (LOGIN & REGISTER)
+   Scoped – does NOT affect other pages
+========================================= */
+
+/* Page wrapper */
+.login-page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #eef3ff;
+    padding: 20px;
+}
+
+/* Auth card */
+.login-box,
+.signup-box {
+    width: 100%;
+    max-width: 420px;
+    background: #ffffff;
+    padding: 35px 32px;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Brand */
+.login-box .brand-name,
+.signup-box .brand-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: #003b7c;
+    margin-bottom: 6px;
+}
+
+.login-box .brand-sub,
+.signup-box .brand-sub {
+    font-size: 14px;
+    color: #6c7b8a;
+    margin-bottom: 26px;
+}
+
+/* Heading */
+.login-box h2,
+.signup-box h2 {
+    margin-bottom: 22px;
+    color: #111;
+    font-size: 22px;
+}
+
+/* Form groups */
+.login-page-wrapper .input-group {
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+.login-page-wrapper .input-group label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.login-page-wrapper .input-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: border-color 0.25s;
+}
+
+.login-page-wrapper .input-group input:focus {
+    border-color: #005ad5;
+}
+
+/* Buttons */
+.login-btn,
+.signup-btn {
+    width: 100%;
+    padding: 13px;
+    background: #005ad5;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.login-btn:hover,
+.signup-btn:hover {
+    background: #0044a8;
+}
+
+/* Google button */
+.login-page-wrapper .google-btn {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 12px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 15px;
+    gap: 12px;
+    margin-top: 14px;
+    text-decoration: none;
+    color: #333;
+    cursor: pointer;
+    transition: background 0.25s;
+}
+
+.login-page-wrapper .google-btn:hover {
+    background: #f3f3f3;
+}
+
+.login-page-wrapper .google-btn img {
+    width: 20px;
+}
+
+/* Messages */
+.login-page-wrapper .error-msg,
+.login-page-wrapper .success-msg {
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.login-page-wrapper .error-msg {
+    background: #ffe1e1;
+    color: #b50000;
+}
+
+.login-page-wrapper .success-msg {
+    background: #e5ffe9;
+    color: #008f20;
+}
+
+/* Links */
+.login-link,
+.signup-link {
+    margin-top: 18px;
+    font-size: 14px;
+}
+
+.login-link a,
+.signup-link a {
+    color: #005ad5;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-link a:hover,
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .login-box,
+    .signup-box {
+        padding: 28px 22px;
+    }
+
+    .login-box .brand-name,
+    .signup-box .brand-name {
+        font-size: 19px;
+    }
+
+    .login-box h2,
+    .signup-box h2 {
+        font-size: 19px;
+    }
+}
+
+/* Login and signup page css over */
+
+/* ================================
+   CONTACT FORM MESSAGES
+================================ */
+
+.contact-success-msg,
+.contact-error-msg {
+    padding: 14px 16px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.5;
+    text-align: center;
+}
+
+/* Success message */
+.contact-success-msg {
+    background: #e9f9ef;
+    color: #1e7e34;
+    border: 1px solid #b7e4c7;
+}
+
+/* Error message */
+.contact-error-msg {
+    background: #fdecea;
+    color: #b02a37;
+    border: 1px solid #f5c2c7;
+}
+
+/* Contact Error message over */

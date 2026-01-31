@@ -10,10 +10,9 @@
 <section class="about-page-banner">
 
     <div class="about-page-banner-image">
-        <img 
-            src="{{ asset('assets/images/contact-us.webp') }}" 
-            alt="Contact Us - ANU Hospitality Staff Ltd"
-        >
+        <img
+            src="{{ asset('assets/images/contact-us.webp') }}"
+            alt="Contact Us - ANU Hospitality Staff Ltd">
     </div>
 
     <!-- NO TEXT OVERLAY AS DISCUSSED -->
@@ -43,11 +42,10 @@
         </a>
 
         <!-- Chat (WhatsApp) -->
-        <a 
-            href="https://wa.me/447700900123" 
+        <a
+            href="https://wa.me/447700900123"
             target="_blank"
-            class="contact-info-card reveal"
-        >
+            class="contact-info-card reveal">
             <i class="fa-brands fa-whatsapp"></i>
             <h3>Chat</h3>
             <p>WhatsApp Support</p>
@@ -62,7 +60,22 @@
 ========================= -->
 <section class="contact-form-section" id="contact-form">
 
+    
+
+
     <div class="contact-form-container reveal">
+
+    @if(session('success'))
+    <div class="contact-success-msg">
+        {{ session('success') }}
+    </div>
+    @endif
+
+    @if($errors->any())
+    <div class="contact-error-msg">
+        {{ $errors->first() }}
+    </div>
+    @endif
 
         <p class="form-tagline">
             Fill Out The Form And We Will Be In Touch Soon!
@@ -70,44 +83,38 @@
 
         <h2>How We Can Help You?</h2>
 
-        <form method="POST" action="#">
+        <form method="POST" action="{{ route('contact.store') }}">
             @csrf
 
-            <input 
-                type="text" 
-                name="company_name" 
-                placeholder="Company Name"
-            >
+            <input
+                type="text"
+                name="company_name"
+                placeholder="Company Name" required>
 
-            <input 
-                type="text" 
-                name="applicant_name" 
-                placeholder="Applicant Name"
-            >
+            <input
+                type="text"
+                name="applicant_name"
+                placeholder="Applicant Name" required>
 
-            <input 
-                type="email" 
-                name="email" 
-                placeholder="Email"
-            >
+            <input
+                type="email"
+                name="email"
+                placeholder="Email" required>
 
-              <input 
-                type="tel" 
-                name="mobile" 
-                placeholder="Mobile Number"
-            >
+            <input
+                type="tel"
+                name="mobile"
+                placeholder="Mobile Number" required>
 
-            <input 
-                type="text" 
-                name="subject" 
-                placeholder="Subject"
-            >
+            <input
+                type="text"
+                name="subject"
+                placeholder="Subject" required>
 
-            <textarea 
-                name="message" 
-                rows="6" 
-                placeholder="Message"
-            ></textarea>
+            <textarea
+                name="message"
+                rows="6"
+                placeholder="Message" required></textarea>
 
             <button type="submit">Submit</button>
 
