@@ -1805,3 +1805,166 @@ header {
 }
 
 /* Contact Error message over */
+
+
+/* Domestic CSS start */
+/* =====================================================
+   DOMESTIC CLEANING PAGE (Scoped & Clean)
+   Uses existing ABOUT PAGE BANNER SYSTEM
+===================================================== */
+
+/* =========================
+   POSTCODE BOX (Banner)
+========================= */
+
+.about-page-banner-text .hero-search-box {
+    margin-top: 22px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.about-page-banner-text .hero-search-box input {
+    padding: 12px 14px;
+    border-radius: 6px;
+    border: none;
+    min-width: 260px;
+    font-size: 15px;
+    outline: none;
+}
+
+.about-page-banner-text .hero-search-box button {
+    padding: 12px 22px;
+    border-radius: 6px;
+    border: none;
+    background: #0056b3;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.about-page-banner-text .hero-search-box button:hover {
+    background: #003f87;
+}
+
+.about-page-banner-text .hero-search-box button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .about-page-banner-text .hero-search-box {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .about-page-banner-text .hero-search-box input,
+    .about-page-banner-text .hero-search-box button {
+        width: 100%;
+    }
+}
+
+/* =========================
+   FAQ SECTION
+========================= */
+
+.faq-section {
+    margin: 80px auto;
+    padding: 0 20px;
+}
+
+.faq-title {
+    text-align: center;
+    font-size: 34px;
+    font-weight: 600;
+    margin-bottom: 40px;
+    color: #111;
+}
+
+.faq-list {
+    max-width: 900px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.faq-item {
+    border: 1px solid #e1e1e1;
+    border-radius: 10px;
+    background: #ffffff;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.faq-item:hover {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.faq-question {
+    width: 100%;
+    padding: 18px 22px;
+    background: #ffffff;
+    border: none;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 600;
+    color: #111;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-question::after {
+    content: "+";
+    font-size: 22px;
+    font-weight: 400;
+    transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-question::after {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 22px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #555;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 220px;
+    padding: 12px 22px 22px;
+}
+
+/* =========================
+   FAQ Responsive
+========================= */
+
+@media (max-width: 576px) {
+    .faq-title {
+        font-size: 28px;
+    }
+
+    .faq-question {
+        font-size: 15px;
+        padding: 16px 18px;
+    }
+
+    .faq-answer {
+        font-size: 14.5px;
+    }
+}
+
+/* =========================
+   DOMESTIC PAGE CSS END
+========================= */
