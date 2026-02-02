@@ -1,0 +1,409 @@
+/* ==================================================
+   GLOBAL RESET
+================================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* ==================================================
+   HEADER
+================================================== */
+.booking-header {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.booking-header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+}
+
+.booking-logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0b5ed7;
+    text-decoration: none;
+}
+
+/* ==================================================
+   TITLE BAR
+================================================== */
+.booking-title-bar {
+    background: #f8fafc;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: center;
+    padding: 18px 20px;
+}
+
+.booking-title-bar h1 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #0f172a;
+    margin: 0;
+}
+
+/* ==================================================
+   BOOKING WRAPPER
+================================================== */
+.booking-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 16px 60px;
+    font-family: "Inter", system-ui, sans-serif;
+    color: #0f172a;
+}
+
+/* ==================================================
+   PROGRESS STEPS
+================================================== */
+.progress-steps {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px 0 50px;
+    position: relative;
+}
+
+.progress-steps::before {
+    content: "";
+    position: absolute;
+    top: 18px;
+    left: 6%;
+    right: 6%;
+    height: 2px;
+    background: #e2e8f0;
+}
+
+.progress-steps .step {
+    flex: 1;
+    text-align: center;
+    font-size: 13px;
+    color: #94a3b8;
+    position: relative;
+}
+
+.progress-steps .step::before {
+    content: attr(data-step);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    margin: 0 auto 6px;
+    border-radius: 50%;
+    border: 2px solid #cbd5f5;
+    background: #ffffff;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.progress-steps .step.active {
+    color: #0b5ed7;
+    font-weight: 600;
+}
+
+.progress-steps .step.active::before {
+    border-color: #0b5ed7;
+    background: #e8f0ff;
+    color: #0b5ed7;
+}
+
+/* ==================================================
+   SECTION CARD
+================================================== */
+.booking-section {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 32px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    margin-bottom: 30px;
+}
+
+.booking-section h3 {
+    font-size: 22px;
+    margin-bottom: 24px;
+    border-left: 4px solid #0b5ed7;
+    padding-left: 12px;
+}
+
+.booking-section h4 {
+    margin-top: 28px;
+    margin-bottom: 12px;
+    font-size: 18px;
+    color: #0b5ed7;
+}
+
+/* ==================================================
+   GRID SYSTEM
+================================================== */
+.booking-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.booking-field.full-width {
+    grid-column: span 2;
+}
+
+/* ==================================================
+   FORM FIELDS
+================================================== */
+.booking-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.booking-field label {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.required {
+    color: #dc2626;
+}
+
+.booking-field input,
+.booking-field select,
+.booking-field textarea {
+    width: 100%;
+    min-height: 48px;
+    border-radius: 10px;
+    border: 1px solid #cbd5f5;
+    padding: 12px 14px;
+    font-size: 15px;
+    background: #ffffff;
+    color: #0f172a;
+}
+
+.booking-field textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.booking-field input:focus,
+.booking-field select:focus,
+.booking-field textarea:focus {
+    outline: none;
+    border-color: #0b5ed7;
+    box-shadow: 0 0 0 3px rgba(11, 94, 215, 0.15);
+}
+
+.readonly-input {
+    background: #f1f5f9;
+}
+
+/* ==================================================
+   INFO & WARNING
+================================================== */
+.info-box {
+    background: #f1f7ff;
+    border-left: 4px solid #0b5ed7;
+    padding: 14px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    margin: 18px 0;
+}
+
+.warning-box {
+    background: #fff1f2;
+    border-left: 4px solid #dc2626;
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-top: 16px;
+}
+
+/* ==================================================
+   CHECKBOXES
+================================================== */
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    border: 1px solid #cbd5f5;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.checkbox-group input {
+    accent-color: #0b5ed7;
+}
+
+/* ==================================================
+   HOURS & ARRIVAL BUTTONS
+================================================== */
+.hours-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.hours-grid button {
+    height: 44px;
+    border-radius: 999px;
+    border: 1.5px solid #cbd5f5;
+    background: #ffffff;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    color: #0f172a;
+}
+
+.hours-grid button.active {
+    background: #0b5ed7;
+    color: #ffffff;
+    border-color: #0b5ed7;
+}
+
+.hours-grid button.recommended {
+    border-style: dashed;
+    border-color: #0b5ed7;
+}
+
+
+/* ===============================
+   ARRIVAL WINDOW – FIXED LAYOUT
+================================ */
+
+.arrival-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* ONE column */
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.arrival-grid button {
+    width: 80%;
+    min-height: 52px;
+    padding: 0 10px;
+    border-radius: 999px;
+    border: 1.5px solid #cbd5f5;
+    background: #ffffff;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    color: #0f172a;
+
+    /* 🔑 IMPORTANT */
+    white-space: nowrap;     /* prevent wrapping */
+    text-align: center;
+}
+
+.arrival-grid button:hover {
+    border-color: #0b5ed7;
+    background: #f8fbff;
+}
+
+.arrival-grid button.active {
+    background: #0b5ed7;
+    color: #ffffff;
+    border-color: #0b5ed7;
+}
+
+#access-key:hover{
+    cursor: pointer;
+}
+
+/* ==================================================
+   SUMMARY
+================================================== */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.summary-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+}
+
+.summary-card h4 {
+    color: #0b5ed7;
+    margin-bottom: 12px;
+}
+
+/* ==================================================
+   ERROR TEXT
+================================================== */
+.error-text {
+    color: #dc2626;
+    font-size: 13px;
+    margin-top: 6px;
+}
+
+/* ==================================================
+   ACTION BUTTONS
+================================================== */
+section button {
+    margin-top: 30px;
+    padding: 14px 32px;
+    border-radius: 999px;
+    background: #0b5ed7;
+    color: #ffffff;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+section button:hover {
+    background: #0949a5;
+}
+
+/* ==================================================
+   FOOTER
+================================================== */
+.booking-footer {
+    margin-top: 60px;
+    padding: 20px;
+    background: #f8fafc;
+    border-top: 1px solid #e5e7eb;
+    text-align: center;
+    font-size: 14px;
+    color: #334155;
+}
+
+.booking-footer a {
+    color: #0b5ed7;
+    text-decoration: none;
+}
+
+.booking-footer a:hover {
+    text-decoration: underline;
+}
+
+/* ==================================================
+   RESPONSIVE
+================================================== */
+@media (max-width: 768px) {
+    .booking-grid,
+    .checkbox-group,
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-field.full-width {
+        grid-column: span 1;
+    }
+
+    .booking-section {
+        padding: 22px 16px;
+    }
+}

@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const slides = document.querySelectorAll(".hero-slide");
     let currentSlide = 0;
 
-    if (slides.length > 0) {
+    if (slides.length) {
         slides.forEach(slide => {
             const bgImage = slide.getAttribute("data-bg");
             if (bgImage) slide.style.backgroundImage = `url('${bgImage}')`;
@@ -109,7 +109,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (faqItems.length) {
         faqItems.forEach(item => {
-            item.querySelector(".faq-question").addEventListener("click", () => {
+            const question = item.querySelector(".faq-question");
+            if (!question) return;
+
+            question.addEventListener("click", () => {
                 faqItems.forEach(i => {
                     if (i !== item) i.classList.remove("active");
                 });
@@ -123,27 +126,35 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
     const findCleanerBtn = document.getElementById("findCleanerBtn");
     const postcodeInput = document.getElementById("postcodeInput");
+    const postcodeError = document.getElementById("postcodeError");
 
-    if (findCleanerBtn && postcodeInput) {
+    if (findCleanerBtn && postcodeInput && postcodeError) {
+
+        const ukPostcodeRegex = /^([A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2})$/;
+
         findCleanerBtn.addEventListener("click", () => {
             const postcode = postcodeInput.value.trim().toUpperCase();
+            postcodeError.textContent = "";
 
             if (!postcode) {
-                alert("Please enter your postcode.");
+                postcodeError.textContent = "Please enter your postcode.";
                 postcodeInput.focus();
                 return;
             }
 
-            const ukPostcodeRegex = /^([A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2})$/;
-
             if (!ukPostcodeRegex.test(postcode)) {
-                alert("Please enter a valid UK postcode (e.g. E12 3AB).");
+                postcodeError.textContent =
+                    "Please enter a valid UK postcode (e.g. E12 3AB).";
                 postcodeInput.focus();
                 return;
             }
 
             window.location.href =
                 `/booking/domestic?postcode=${encodeURIComponent(postcode)}`;
+        });
+
+        postcodeInput.addEventListener("input", () => {
+            postcodeError.textContent = "";
         });
     }
 

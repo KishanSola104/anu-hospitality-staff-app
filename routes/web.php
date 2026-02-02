@@ -7,6 +7,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\BookingController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -77,3 +79,8 @@ Route::post('/logout', [LoginController::class, 'logout'])
 Route::get('/dashboard', function () {
     return view('user.dashboard');
 })->name('user.dashboard')->middleware('auth');
+
+
+/* Booking page route */
+Route::get('/booking/domestic', [BookingController::class, 'domestic'])
+    ->name('booking.domestic');

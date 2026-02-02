@@ -12,8 +12,7 @@
     <div class="about-page-banner-image">
         <img
             src="{{ asset('assets/images/backgrounds/domestic.webp') }}"
-            alt="Domestic Cleaning Services - ANU Hospitality Staff Ltd"
-        >
+            alt="Domestic Cleaning Services - ANU Hospitality Staff Ltd">
     </div>
 
     <div class="about-page-banner-overlay">
@@ -23,15 +22,20 @@
 
             <!-- Postcode Box -->
             <div class="hero-search-box">
-                <input
-                    type="text"
-                    id="postcodeInput"
-                    placeholder="Enter your postcode (e.g. E12 3AB)"
-                    autocomplete="postal-code"
-                >
-                <button type="button" id="findCleanerBtn">
-                    Find a home cleaner
-                </button>
+                <div class="postcode-box">
+                    <input
+                        type="text"
+                        id="postcodeInput"
+                        placeholder="Enter your postcode">
+
+                    <span id="postcodeError" class="postcode-error"></span>
+
+                    <button id="findCleanerBtn" type="button">
+                        Find Cleaner
+                    </button>
+                </div>
+
+                
             </div>
         </div>
     </div>
