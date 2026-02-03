@@ -12,10 +12,7 @@
             vm.step = 1;
 
             vm.form = {
-                postcode:
-                    new URLSearchParams(window.location.search).get(
-                        "postcode",
-                    ) || "",
+                postcode: new URLSearchParams(window.location.search).get("postcode") || "",
 
                 /* ---------- STEP 1 ---------- */
                 bedrooms: null,
@@ -35,10 +32,7 @@
                     full_name: "",
                     full_address: "",
                     city: "",
-                    postcode:
-                        new URLSearchParams(window.location.search).get(
-                            "postcode",
-                        ) || "",
+                    postcode: new URLSearchParams(window.location.search).get("postcode") || "",
                     mobile: "",
                     alt_mobile: "",
                     instructions: "",
@@ -56,6 +50,30 @@
                ERRORS
             ===================== */
             vm.errors = {};
+
+            /* =====================
+               PRICE (IMPORTANT)
+            ===================== */
+            vm.price = {
+                base: 0,
+                discount: 0,
+                total: 0,
+            };
+
+            const HOURLY_RATE = 20;
+            const OVEN_PRICE = 60;
+
+            vm.calculatePrice = function () {
+                let base = vm.form.hours * HOURLY_RATE;
+
+                if (vm.form.extras.oven) {
+                    base += OVEN_PRICE;
+                }
+
+                vm.price.base = base;
+                vm.price.discount = 0;
+                vm.price.total = base;
+            };
 
             /* =====================
                HOURS CONFIG
@@ -119,13 +137,13 @@
                 if (!vm.form.hours) {
                     vm.form.hours = hours;
                 }
+
+                vm.calculatePrice();
             };
 
             /* =====================
                STEP VALIDATIONS
             ===================== */
-
-            /* ---------- STEP 1 ---------- */
             vm.validateStep1 = function () {
                 vm.errors = {};
 
@@ -159,7 +177,6 @@
                 return true;
             };
 
-            /* ---------- STEP 2 ---------- */
             vm.validateStep2 = function () {
                 vm.errors = {};
 
@@ -196,7 +213,6 @@
                 return true;
             };
 
-            /* ---------- STEP 3 ---------- */
             vm.validateStep3 = function () {
                 vm.errors = {};
 
@@ -229,14 +245,9 @@
                     const el = document.getElementById(elementId);
                     if (!el) return;
 
-                    el.scrollIntoView({
-                        behavior: "smooth",
-                        block: "center",
-                    });
+                    el.scrollIntoView({ behavior: "smooth", block: "center" });
 
-                    const input = el.querySelector(
-                        "input, textarea, select, button",
-                    );
+                    const input = el.querySelector("input, textarea, select, button");
                     if (input) input.focus();
                 }, 100);
             };
@@ -260,6 +271,36 @@
                     vm.step--;
                     window.scrollTo({ top: 0, behavior: "smooth" });
                 }
+            };
+
+            /* =====================
+               💳 PAYMENT (FINAL & WORKING)
+            ===================== */
+            vm.pay = function () {
+                fetch("/booking/pay", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document
+                            .querySelector('meta[name="csrf-token"]')
+                            .getAttribute("content"),
+                    },
+                    body: JSON.stringify({
+                        form: vm.form,
+                        price: vm.price,
+                    }),
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        if (data.url) {
+                            window.location.href = data.url;
+                        } else {
+                            alert("Payment initialization failed.");
+                        }
+                    })
+                    .catch(() => {
+                        alert("Something went wrong. Please try again.");
+                    });
             };
 
             /* =====================

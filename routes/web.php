@@ -19,6 +19,7 @@ use App\Http\Controllers\BookingController;
 /* ======================
    HOME
 ====================== */
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 /* ======================
@@ -84,3 +85,15 @@ Route::get('/dashboard', function () {
 /* Booking page route */
 Route::get('/booking/domestic', [BookingController::class, 'domestic'])
     ->name('booking.domestic');
+
+
+
+/* Stripe Payment  */
+Route::post('/booking/pay', [BookingController::class, 'pay'])
+    ->name('booking.pay');
+
+Route::get('/booking/success/{booking}', [BookingController::class, 'success'])
+    ->name('booking.success');
+
+Route::get('/booking/cancel/{booking}', [BookingController::class, 'cancel'])
+    ->name('booking.cancel');
