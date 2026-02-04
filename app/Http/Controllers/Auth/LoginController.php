@@ -11,11 +11,9 @@ class LoginController extends Controller
     /**
      * Show login page
      */
-    public function show(Request $request)
+    public function show()
     {
-        return view('auth.login', [
-            'redirect' => $request->query('redirect')
-        ]);
+        return view('auth.login');
     }
 
     /**
@@ -31,11 +29,8 @@ class LoginController extends Controller
         if (Auth::attempt($credentials, true)) {
             $request->session()->regenerate();
 
-            $redirect = $request->input('redirect_after_login');
-
-            return $redirect
-                ? redirect($redirect)
-                : redirect()->route('user.dashboard');
+            // ✅ KEY LINE: redirect back to intended page (booking) or dashboard
+            return redirect()->intended(route('user.dashboard'));
         }
 
         return back()->with('error', 'Invalid email or password.');

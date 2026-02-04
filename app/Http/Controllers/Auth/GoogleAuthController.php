@@ -16,11 +16,6 @@ class GoogleAuthController extends Controller
      */
     public function redirect()
     {
-        // Store intended redirect 
-        if (request('redirect')) {
-            session(['redirect_after_login' => request('redirect')]);
-        }
-
         return Socialite::driver('google')->redirect();
     }
 
@@ -43,19 +38,17 @@ class GoogleAuthController extends Controller
             $user = User::where('email', $googleUser->getEmail())->first();
 
             if ($user) {
-                
                 $user->update([
                     'login_type'     => 'google',
                     'profile_image' => $googleUser->getAvatar(),
                 ]);
             } else {
-                
                 $user = User::create([
-                    'name'          => $googleUser->getName(),
-                    'email'         => $googleUser->getEmail(),
-                    'login_type'    => 'google',
-                    'profile_image'=> $googleUser->getAvatar(),
-                    'password'      => bcrypt(Str::random(32)), 
+                    'name'           => $googleUser->getName(),
+                    'email'          => $googleUser->getEmail(),
+                    'login_type'     => 'google',
+                    'profile_image' => $googleUser->getAvatar(),
+                    'password'       => bcrypt(Str::random(32)),
                 ]);
             }
 
@@ -67,14 +60,10 @@ class GoogleAuthController extends Controller
                 ->with('error', 'Unable to complete Google login.');
         }
 
-        
+        // Login user
         Auth::login($user, true);
 
-        
-        $redirect = session()->pull('redirect_after_login');
-
-        return $redirect
-            ? redirect($redirect)
-            : redirect()->route('user.dashboard');
+        // ✅ IMPORTANT: Laravel handles booking → login → booking
+        return redirect()->intended(route('user.dashboard'));
     }
 }

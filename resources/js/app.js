@@ -158,4 +158,54 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+
+     /* ===============================
+       CONTACT FORM SUBMIT HANDLING
+    =============================== */
+
+    const form = document.querySelector(".contact-form-section form");
+    const form_overlay = document.getElementById("form-loader-overlay");
+    const successMsg = document.getElementById("contact-success");
+
+    /* --------
+       ON FORM SUBMIT
+    -------- */
+    if (form && form_overlay) {
+        form.addEventListener("submit", function () {
+
+            // Show loader overlay with blur
+            form_overlay.classList.add("active");
+
+            // Disable submit button to prevent multiple clicks
+            const btn = form.querySelector("button[type='submit']");
+            if (btn) {
+                btn.disabled = true;
+                btn.innerText = "Submitting...";
+            }
+        });
+    }
+
+    /* --------
+       AFTER PAGE RELOAD (SUCCESS MESSAGE)
+    -------- */
+    if (successMsg) {
+
+        // Ensure loader is hidden after reload
+        if (form_overlay) {
+            form_overlay.classList.remove("active");
+        }
+
+        // Smooth scroll to success message
+        successMsg.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        // Auto hide success message after 6 seconds
+        setTimeout(() => {
+            successMsg.style.transition = "opacity 0.6s ease";
+            successMsg.style.opacity = "0";
+        }, 6000);
+    }
+
 });

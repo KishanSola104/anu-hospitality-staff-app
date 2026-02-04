@@ -9,6 +9,9 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookingController;
 
+/* Admin Side Controllers */
+use App\Http\Controllers\Admin\AuthController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -83,17 +86,44 @@ Route::get('/dashboard', function () {
 
 
 /* Booking page route */
-Route::get('/booking/domestic', [BookingController::class, 'domestic'])
-    ->name('booking.domestic');
+Route::middleware('auth')->group(function () {
+
+    /* Booking page */
+    Route::get('/booking/domestic', [BookingController::class, 'domestic'])
+        ->name('booking.domestic');
+
+    /* Stripe Payment */
+    Route::post('/booking/pay', [BookingController::class, 'pay'])
+        ->name('booking.pay');
+
+    Route::get('/booking/success/{booking}', [BookingController::class, 'success'])
+        ->name('booking.success');
+
+    Route::get('/booking/cancel/{booking}', [BookingController::class, 'cancel'])
+        ->name('booking.cancel');
+
+});
 
 
 
-/* Stripe Payment  */
-Route::post('/booking/pay', [BookingController::class, 'pay'])
-    ->name('booking.pay');
+/* Admin side routes */
+Route::prefix('admin')->group(function () {
 
-Route::get('/booking/success/{booking}', [BookingController::class, 'success'])
-    ->name('booking.success');
+    // Public routes
+    Route::get('/login', [AuthController::class, 'showLogin'])
+        ->name('admin.login');
 
-Route::get('/booking/cancel/{booking}', [BookingController::class, 'cancel'])
-    ->name('booking.cancel');
+    Route::post('/login', [AuthController::class, 'login'])
+        ->name('admin.login.submit');
+
+    // Protected routes
+    Route::middleware('admin.auth')->group(function () {
+
+        Route::get('/dashboard', function () {
+            return view('admin.pages.dashboard');
+        })->name('admin.dashboard');
+
+        Route::get('/logout', [AuthController::class, 'logout'])
+            ->name('admin.logout');
+    });
+});

@@ -7,6 +7,17 @@
 <!-- =========================
      CONTACT PAGE BANNER
 ========================= -->
+
+
+ <!-- SUBMIT LOADER OVERLAY -->
+<div id="form-loader-overlay">
+    <div class="loader-box">
+        <div class="spinner"></div>
+        <p>Sending your message…</p>
+    </div>
+</div>
+
+
 <section class="about-page-banner">
 
     <div class="about-page-banner-image">
@@ -65,11 +76,11 @@
 
     <div class="contact-form-container reveal">
 
-    @if(session('success'))
-    <div class="contact-success-msg">
-        {{ session('success') }}
-    </div>
-    @endif
+   @if(session('success'))
+<div class="contact-success-msg" id="contact-success">
+    {{ session('success') }}
+</div>
+@endif
 
     @if($errors->any())
     <div class="contact-error-msg">
