@@ -52,10 +52,10 @@ class RegisterController extends Controller
                 ->with('error', 'Something went wrong. Please try again.');
         }
 
-        // ✅ Auto login (remember enabled)
+        //  Auto login (remember enabled)
         Auth::login($user, true);
 
-        // ✅ Smart redirect
+        //  Smart redirect
         $redirect = $request->input('redirect_after_signup');
 
         return $redirect

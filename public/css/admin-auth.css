@@ -1,0 +1,146 @@
+/* ==============================
+   ADMIN LOGIN – LIGHT THEME
+============================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", system-ui, sans-serif;
+}
+
+body {
+    background: #f8fafc;
+    min-height: 100vh;
+}
+
+/* Wrapper */
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Card */
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+    background: #ffffff;
+    padding: 38px 32px;
+    border-radius: 14px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+/* Brand */
+.auth-brand h1 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #2563eb;
+}
+
+.auth-brand span {
+    display: block;
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 20px;
+}
+
+/* Titles */
+.auth-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 6px;
+}
+
+.auth-subtitle {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 24px;
+}
+
+/* Error */
+.auth-error {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+/* Inputs */
+.form-group {
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 15px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background: #f9fafb;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.form-group input:focus {
+    border-color: #2563eb;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Button */
+.auth-btn {
+    width: 100%;
+    padding: 12px;
+    background: #2563eb;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.auth-btn:hover {
+    background: #1d4ed8;
+}
+
+.auth-btn:active {
+    transform: scale(0.97);
+}
+
+/* Footer */
+.auth-footer {
+    margin-top: 26px;
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+.auth-footer .powered-by {
+    margin-top: 4px;
+    color: #374151;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 30px 22px;
+    }
+
+    .auth-brand h1 {
+        font-size: 20px;
+    }
+
+    .auth-title {
+        font-size: 22px;
+    }
+}
