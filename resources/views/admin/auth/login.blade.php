@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Login</title>
+    <title>@yield('title', 'Admin Login')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {{-- Admin Auth CSS --}}
-   <link rel="stylesheet" href="{{ asset('css/admin-auth.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin-auth.css') }}">
 </head>
 <body>
 
@@ -23,9 +23,17 @@
         <h2 class="auth-title">Admin Login</h2>
         <p class="auth-subtitle">Sign in to manage your dashboard</p>
 
+        {{-- Session Error (Invalid credentials etc.) --}}
         @if(session('error'))
             <div class="auth-error">
                 {{ session('error') }}
+            </div>
+        @endif
+
+        {{-- Validation Errors --}}
+        @if ($errors->any())
+            <div class="auth-error">
+                {{ $errors->first() }}
             </div>
         @endif
 
@@ -33,11 +41,23 @@
             @csrf
 
             <div class="form-group">
-                <input type="email" name="email" placeholder="Email address" required>
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Email address"
+                    value="{{ old('email') }}"
+                    required
+                    autofocus
+                >
             </div>
 
             <div class="form-group">
-                <input type="password" name="password" placeholder="Password" required>
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    required
+                >
             </div>
 
             <button type="submit" class="auth-btn">

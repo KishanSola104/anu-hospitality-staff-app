@@ -1,3 +1,8 @@
-<h1>Admin Dashboard</h1>
-<p>Welcome Admin 👋</p>
-<a href="{{ route('admin.logout') }}">Logout</a>
+@extends('admin.layouts.admin-app')
+
+@section('title', 'Dashboard')
+
+@section('content')
+    <h2>Dashboard Overview</h2>
+    <p>This is the admin dashboard.</p>
+@endsection

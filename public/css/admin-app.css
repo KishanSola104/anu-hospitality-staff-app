@@ -1,0 +1,269 @@
+/* ===============================
+   ROOT VARIABLES
+================================ */
+:root {
+  --blue: #0a66c2;
+  --dark: #1e293b;
+  --light: #f4f7fc;
+  --white: #ffffff;
+  --gray: #64748b;
+}
+
+/* ===============================
+   GLOBAL
+================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: var(--light);
+  color: var(--dark);
+}
+
+/* ===============================
+   LAYOUT
+================================ */
+.admin-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+.admin-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===============================
+   SIDEBAR (DESKTOP)
+================================ */
+.admin-sidebar {
+  width: 240px;
+  background: var(--dark);
+  color: var(--white);
+  padding: 25px 20px;
+  transition: left 0.3s ease;
+}
+
+.sidebar-brand {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.sidebar-brand h2 {
+  font-size: 1.4rem;
+  color: var(--white);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebar-nav a {
+  color: #cbd5e1;
+  text-decoration: none;
+  padding: 12px 15px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  transition: all 0.25s ease;
+}
+
+.sidebar-nav a:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--white);
+}
+
+/* ===============================
+   HEADER
+================================ */
+.admin-header {
+  background: var(--white);
+  padding: 18px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e5e9f0;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.admin-header h1 {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.admin-header p {
+  font-size: 0.9rem;
+  color: var(--gray);
+  margin-top: 3px;
+}
+
+/* Toggle button */
+.sidebar-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: var(--dark);
+}
+
+.logout-btn {
+  background: var(--blue);
+  color: var(--white);
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.logout-btn:hover {
+  background: #084c96;
+}
+
+/* ===============================
+   CONTENT
+================================ */
+.admin-content {
+  padding: 25px;
+  flex: 1;
+}
+
+/* ===============================
+   FOOTER
+================================ */
+.admin-footer {
+  background: var(--white);
+  border-top: 1px solid #e5e9f0;
+  text-align: center;
+  padding: 30px 15px;
+}
+
+.footer-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.footer-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--blue);
+  margin-bottom: 10px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: var(--dark);
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.footer-links a:hover {
+  color: var(--blue);
+}
+
+.copy {
+  font-size: 0.8rem;
+  color: var(--gray);
+  margin-top: 12px;
+}
+
+/* ===============================
+   SIDEBAR OVERLAY
+================================ */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 999;
+}
+
+/* ===============================
+   TABLET & MOBILE (≤ 992px)
+================================ */
+@media (max-width: 992px) {
+
+  .sidebar-toggle {
+    display: block;
+  }
+
+  .admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    height: 100vh;
+    width: 240px;
+    z-index: 1000;
+  }
+
+  .admin-sidebar.active {
+    left: 0;
+  }
+
+  .sidebar-overlay.active {
+    display: block;
+  }
+
+  .admin-wrapper {
+    flex-direction: column;
+  }
+}
+
+/* ===============================
+   MOBILE (≤ 600px)
+================================ */
+@media (max-width: 600px) {
+
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .admin-header h1 {
+    font-size: 1.15rem;
+  }
+
+  .admin-header p {
+    font-size: 0.8rem;
+  }
+
+  .logout-btn {
+    align-self: flex-end;
+  }
+
+  .admin-content {
+    padding: 15px;
+  }
+
+  .footer-links {
+    gap: 12px;
+  }
+
+  .copy {
+    font-size: 0.75rem;
+  }
+}

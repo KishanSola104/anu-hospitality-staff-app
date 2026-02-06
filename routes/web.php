@@ -9,9 +9,9 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookingController;
 
-/* Admin Side Controllers */
+/* Admin Controllers */
 use App\Http\Controllers\Admin\AuthController;
-
+use App\Http\Controllers\Admin\AdminDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +22,6 @@ use App\Http\Controllers\Admin\AuthController;
 /* ======================
    HOME
 ====================== */
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 /* ======================
@@ -48,10 +47,8 @@ Route::get('/refund-policy', [PagesController::class, 'refundPolicy'])->name('re
 Route::get('/cancellation-policy', [PagesController::class, 'cancellationPolicy'])->name('cancellation.policy');
 
 /* ======================
-   AUTHENTICATION
+   USER AUTHENTICATION
 ====================== */
-
-/* Login */
 Route::get('/login', [LoginController::class, 'show'])
     ->name('login')
     ->middleware('guest');
@@ -59,7 +56,6 @@ Route::get('/login', [LoginController::class, 'show'])
 Route::post('/login', [LoginController::class, 'authenticate'])
     ->middleware('guest');
 
-/* Register */
 Route::get('/register', [RegisterController::class, 'show'])
     ->name('register')
     ->middleware('guest');
@@ -84,15 +80,14 @@ Route::get('/dashboard', function () {
     return view('user.dashboard');
 })->name('user.dashboard')->middleware('auth');
 
-
-/* Booking page route */
+/* ======================
+   BOOKING (AUTH REQUIRED)
+====================== */
 Route::middleware('auth')->group(function () {
 
-    /* Booking page */
     Route::get('/booking/domestic', [BookingController::class, 'domestic'])
         ->name('booking.domestic');
 
-    /* Stripe Payment */
     Route::post('/booking/pay', [BookingController::class, 'pay'])
         ->name('booking.pay');
 
@@ -101,29 +96,36 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/booking/cancel/{booking}', [BookingController::class, 'cancel'])
         ->name('booking.cancel');
-
 });
 
+/* ======================
+   ADMIN ROUTES
+====================== */
+Route::prefix('admin')->name('admin.')->group(function () {
 
-
-/* Admin side routes */
-Route::prefix('admin')->group(function () {
-
-    // Public routes
+    /* ---------- ADMIN AUTH ---------- */
     Route::get('/login', [AuthController::class, 'showLogin'])
-        ->name('admin.login');
+        ->name('login');
 
     Route::post('/login', [AuthController::class, 'login'])
-        ->name('admin.login.submit');
+        ->name('login.submit');
 
-    // Protected routes
-    Route::middleware('admin.auth')->group(function () {
+    Route::get('/logout', [AuthController::class, 'logout'])
+        ->name('logout');
 
-        Route::get('/dashboard', function () {
-            return view('admin.pages.dashboard');
-        })->name('admin.dashboard');
+    /* ---------- PROTECTED ADMIN ---------- */
+    Route::middleware(['admin.auth', 'prevent.back'])->group(function () {
 
-        Route::get('/logout', [AuthController::class, 'logout'])
-            ->name('admin.logout');
+        Route::get('/dashboard', [AdminDashboardController::class, 'dashboard'])
+            ->name('dashboard');
+
+        Route::get('/bookings', [AdminDashboardController::class, 'bookings'])
+            ->name('bookings');
+
+        Route::get('/vacancies', [AdminDashboardController::class, 'vacancies'])
+            ->name('vacancies');
+
+        Route::get('/contacts', [AdminDashboardController::class, 'contacts'])
+            ->name('contacts');
     });
 });

@@ -10,11 +10,22 @@ use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
+    /* ======================
+       SHOW LOGIN
+    ====================== */
     public function showLogin()
     {
+        // If already logged in, redirect to dashboard
+        if (Session::has('admin_id')) {
+            return redirect()->route('admin.dashboard');
+        }
+
         return view('admin.auth.login');
     }
 
+    /* ======================
+       LOGIN
+    ====================== */
     public function login(Request $request)
     {
         $request->validate([
@@ -28,15 +39,27 @@ class AuthController extends Controller
             return back()->with('error', 'Invalid email or password');
         }
 
+        // IMPORTANT: regenerate session (security)
+        $request->session()->regenerate();
+
         // Store admin session
         Session::put('admin_id', $admin->id);
 
         return redirect()->route('admin.dashboard');
     }
 
-    public function logout()
+    /* ======================
+       LOGOUT
+    ====================== */
+    public function logout(Request $request)
     {
-        Session::forget('admin_id');
+        // Destroy complete session
+        Session::flush();
+
+        // Regenerate token & session
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         return redirect()->route('admin.login');
     }
 }

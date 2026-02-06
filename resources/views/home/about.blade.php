@@ -23,7 +23,7 @@
                 with precision and trust.
             </p>
 
-            <a href="javascript:void(0)" class="about-btn">
+            <a href="{{ route('about') }}" class="about-btn">
                 Read More
             </a>
         </div>
