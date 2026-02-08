@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 /* ======================
    HOME
 ====================== */
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 /* ======================
@@ -122,10 +123,26 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/bookings', [AdminDashboardController::class, 'bookings'])
             ->name('bookings');
 
+        /* ===== BOOKING ACTIONS ===== */
+        Route::post(
+            '/bookings/{booking}/complete',
+            [AdminDashboardController::class, 'markCompleted']
+        )->name('bookings.complete');
+
+        Route::post(
+            '/bookings/{booking}/refund',
+            [AdminDashboardController::class, 'markRefunded']
+        )->name('bookings.refund');
+
         Route::get('/vacancies', [AdminDashboardController::class, 'vacancies'])
             ->name('vacancies');
 
         Route::get('/contacts', [AdminDashboardController::class, 'contacts'])
             ->name('contacts');
+
+        Route::get(
+            '/bookings/{booking}/download',
+            [AdminDashboardController::class, 'downloadBookingPdf']
+        )->name('bookings.download');
     });
 });

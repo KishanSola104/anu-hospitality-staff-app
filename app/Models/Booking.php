@@ -9,9 +9,6 @@ class Booking extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     */
     protected $fillable = [
         'user_id',
 
@@ -37,6 +34,10 @@ class Booking extends Model
         'arrival_window',
         'access_method',
 
+        // Cleaning materials
+        'cleaning_materials',
+        'materials_charge',
+
         // Pricing
         'base_price',
         'discount',
@@ -48,21 +49,16 @@ class Booking extends Model
         'stripe_payment_intent',
     ];
 
-    /**
-     * Attribute casting
-     */
     protected $casts = [
         'extras' => 'array',
         'has_pets' => 'boolean',
         'preferred_date' => 'date',
         'base_price' => 'decimal:2',
+        'materials_charge' => 'decimal:2',
         'discount' => 'decimal:2',
         'total_price' => 'decimal:2',
     ];
 
-    /**
-     * Relationships
-     */
     public function user()
     {
         return $this->belongsTo(User::class);
