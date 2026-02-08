@@ -182,4 +182,54 @@ document.addEventListener("click", function (e) {
     }
 });
 
+
 });
+
+/* ======================
+   VACANCY MODAL JS
+   
+====================== */
+window.openAddModal = function () {
+    document.getElementById('addModal').style.display = 'flex';
+}
+
+window.openEditModal = function (btn) {
+    const job = JSON.parse(btn.dataset.job);
+
+    document.getElementById('editForm').action =
+        `/admin/vacancies/${job.id}`;
+
+    document.getElementById('edit_title').value = job.title;
+    document.getElementById('edit_location').value = job.location;
+    document.getElementById('edit_job_type').value = job.job_type;
+    document.getElementById('edit_description').value = job.description;
+
+    document.getElementById('editModal').style.display = 'flex';
+};
+
+
+window.closeModal = function () {
+    document.querySelectorAll('.modal')
+        .forEach(m => m.style.display = 'none');
+}
+
+
+/* Contact us JS */
+window.openContactModal = function (btn) {
+    const c = JSON.parse(btn.dataset.contact);
+
+    document.getElementById('m_company').innerText = c.company_name || '-';
+    document.getElementById('m_name').innerText = c.applicant_name;
+    document.getElementById('m_subject').innerText = c.subject;
+    document.getElementById('m_message').innerText = c.message;
+
+    const email = document.getElementById('m_email');
+    email.innerText = c.email;
+    email.href = `mailto:${c.email}`;
+
+    const mobile = document.getElementById('m_mobile');
+    mobile.innerText = c.mobile;
+    mobile.href = `tel:${c.mobile}`;
+
+    document.getElementById('contactModal').style.display = 'flex';
+};

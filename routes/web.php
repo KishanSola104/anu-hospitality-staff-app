@@ -9,20 +9,23 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookingController;
 
-/* Admin Controllers */
+/* ======================
+   ADMIN CONTROLLERS
+====================== */
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\JobPostController;
+use App\Http\Controllers\Admin\VacancyApplicationController;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| WEB ROUTES
 |--------------------------------------------------------------------------
 */
 
 /* ======================
    HOME
 ====================== */
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 /* ======================
@@ -30,8 +33,22 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 ====================== */
 Route::get('/about-us', [PagesController::class, 'about'])->name('about');
 Route::get('/services', [PagesController::class, 'services'])->name('services');
-Route::get('/vacancies', [PagesController::class, 'vacancies'])->name('vacancies');
 Route::get('/domestic-clean', [PagesController::class, 'domesticClean'])->name('domestic.clean');
+
+/* Candudate Vacancies URL */
+Route::get('/vacancies', [PagesController::class, 'vacancies'])
+    ->name('vacancies');
+
+Route::get('/apply/{job}', [PagesController::class, 'apply'])
+    ->name('vacancy.apply');
+
+Route::get('/apply', [PagesController::class, 'applyGeneral'])
+    ->name('vacancy.apply.general');
+
+Route::post('/apply', [PagesController::class, 'submitApplication'])
+    ->name('vacancy.apply.submit');
+
+    
 
 /* ======================
    CONTACT PAGE
@@ -64,7 +81,7 @@ Route::get('/register', [RegisterController::class, 'show'])
 Route::post('/register', [RegisterController::class, 'store'])
     ->middleware('guest');
 
-/* Google Auth */
+/* Google Login */
 Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])
     ->name('google.login');
 
@@ -105,44 +122,69 @@ Route::middleware('auth')->group(function () {
 Route::prefix('admin')->name('admin.')->group(function () {
 
     /* ---------- ADMIN AUTH ---------- */
-    Route::get('/login', [AuthController::class, 'showLogin'])
-        ->name('login');
-
-    Route::post('/login', [AuthController::class, 'login'])
-        ->name('login.submit');
-
-    Route::get('/logout', [AuthController::class, 'logout'])
-        ->name('logout');
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
     /* ---------- PROTECTED ADMIN ---------- */
     Route::middleware(['admin.auth', 'prevent.back'])->group(function () {
 
+        /* Dashboard */
         Route::get('/dashboard', [AdminDashboardController::class, 'dashboard'])
             ->name('dashboard');
 
+        /* Bookings */
         Route::get('/bookings', [AdminDashboardController::class, 'bookings'])
             ->name('bookings');
 
-        /* ===== BOOKING ACTIONS ===== */
-        Route::post(
-            '/bookings/{booking}/complete',
+        Route::post('/bookings/{booking}/complete',
             [AdminDashboardController::class, 'markCompleted']
         )->name('bookings.complete');
 
-        Route::post(
-            '/bookings/{booking}/refund',
+        Route::post('/bookings/{booking}/refund',
             [AdminDashboardController::class, 'markRefunded']
         )->name('bookings.refund');
 
-        Route::get('/vacancies', [AdminDashboardController::class, 'vacancies'])
-            ->name('vacancies');
+        Route::get('/bookings/{booking}/download',
+            [AdminDashboardController::class, 'downloadBookingPdf']
+        )->name('bookings.download');
 
+        /* Contacts */
         Route::get('/contacts', [AdminDashboardController::class, 'contacts'])
             ->name('contacts');
 
-        Route::get(
-            '/bookings/{booking}/download',
-            [AdminDashboardController::class, 'downloadBookingPdf']
-        )->name('bookings.download');
+        /* ======================
+           VACANCY MANAGEMENT
+        ====================== */
+        Route::get('/vacancies', [JobPostController::class, 'index'])
+            ->name('vacancies');
+
+        Route::post('/vacancies', [JobPostController::class, 'store'])
+            ->name('vacancies.store');
+
+        Route::put('/vacancies/{job}', [JobPostController::class, 'update'])
+            ->name('vacancies.update');
+
+        Route::delete('/vacancies/{job}', [JobPostController::class, 'destroy'])
+            ->name('vacancies.delete');
+
+        Route::post('/vacancies/{job}/toggle', [JobPostController::class, 'toggle'])
+            ->name('vacancies.toggle');
+
+        /* Job-wise Applications */
+        Route::get('/vacancies/{job}/applications',
+            [VacancyApplicationController::class, 'index']
+        )->name('vacancies.applications');
+
+        /* ======================
+           CANDIDATE APPLICATIONS
+        ====================== */
+        Route::get('/candidate-applications',
+            [VacancyApplicationController::class, 'all']
+        )->name('candidate.applications');
+
+        Route::post('/applications/{application}/status',
+            [VacancyApplicationController::class, 'updateStatus']
+        )->name('applications.status');
     });
 });

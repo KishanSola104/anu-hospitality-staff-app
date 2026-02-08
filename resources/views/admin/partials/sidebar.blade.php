@@ -13,7 +13,11 @@
         </a>
 
         <a href="{{ route('admin.vacancies') }}">
-            <i class="fa-solid fa-briefcase"></i> Vacancy Applications
+            <i class="fa-solid fa-briefcase"></i> Vacancies
+        </a>
+
+        <a href="{{ route('admin.candidate.applications') }}">
+            <i class="fa-solid fa-users"></i> Candidate Applications
         </a>
 
         <a href="{{ route('admin.contacts') }}">

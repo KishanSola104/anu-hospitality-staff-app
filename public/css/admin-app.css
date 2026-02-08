@@ -690,3 +690,257 @@ body {
     grid-column: span 1;
   }
 }
+
+
+/* Vacancy page  css */
+/* ===============================
+   PAGE HEADER
+================================ */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.page-header h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* ===============================
+   BUTTONS
+================================ */
+.btn-primary {
+  background: #0a66c2;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-primary:hover {
+  background: #084c94;
+}
+
+.btn-blue {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.btn-yellow {
+  background: #f59e0b;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-size: 13px;
+  cursor: pointer;
+  margin: 0 4px;
+}
+
+.btn-red {
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.btn-blue:hover,
+.btn-yellow:hover,
+.btn-red:hover {
+  opacity: 0.9;
+}
+
+/* ===============================
+   STATUS TEXT
+================================ */
+.text-green {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.text-red {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+/* ===============================
+   TABLE
+================================ */
+.admin-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.admin-table thead {
+  background: #0a66c2;
+  color: #fff;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 14px 12px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.admin-table tbody tr {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.admin-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.admin-table td:last-child {
+  white-space: nowrap;
+}
+
+/* ===============================
+   MODALS
+================================ */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal form {
+  background: #fff;
+  width: 95%;
+  max-width: 520px;
+  padding: 22px;
+  border-radius: 12px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.modal h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* ===============================
+   FORM FIELDS
+================================ */
+.modal input,
+.modal select,
+.modal textarea {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+}
+
+.modal textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.modal input:focus,
+.modal select:focus,
+.modal textarea:focus {
+  outline: none;
+  border-color: #0a66c2;
+}
+
+/* ===============================
+   MODAL BUTTONS
+================================ */
+.modal button {
+  margin-top: 10px;
+}
+
+.modal button + button {
+  margin-left: 8px;
+}
+
+/* ===============================
+   RESPONSIVE (MOBILE)
+================================ */
+@media (max-width: 768px) {
+  .page-header {
+    gap: 10px;
+  }
+
+  .admin-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .btn-blue,
+  .btn-yellow,
+  .btn-red {
+    margin-bottom: 4px;
+  }
+}
+
+
+/* Candidate applications page css */
+/* ===============================
+   STATUS BADGES
+================================ */
+.badge-blue {
+  background: #2563eb;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.badge-green {
+  background: #16a34a;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.badge-red {
+  background: #dc2626;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+/* ===============================
+   STATUS DROPDOWN
+================================ */
+.admin-table select {
+  padding: 6px 8px;
+  font-size: 13px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+}

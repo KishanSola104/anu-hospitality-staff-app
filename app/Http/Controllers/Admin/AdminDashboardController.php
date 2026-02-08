@@ -106,13 +106,18 @@ class AdminDashboardController extends Controller
         return view('admin.pages.vacancy-applications');
     }
 
-    /* ======================
-       CONTACT QUERIES
-    ====================== */
-    public function contacts()
-    {
-        return view('admin.pages.contact-queries');
-    }
+   /* ======================
+   CONTACT QUERIES
+====================== */
+public function contacts()
+{
+    $contacts = ContactMessage::latest()->get();
+
+    return view(
+        'admin.pages.contact-queries',
+        compact('contacts')
+    );
+}
 
     /* PDF Download Function */
     public function downloadBookingPdf(Booking $booking)
