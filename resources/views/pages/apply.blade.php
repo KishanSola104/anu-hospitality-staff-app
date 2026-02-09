@@ -3,7 +3,15 @@
 
 @section('content')
 
-<section class="apply-section">
+<!-- SUBMIT LOADER OVERLAY -->
+<div id="form-loader-overlay">
+    <div class="loader-box">
+        <div class="spinner"></div>
+        <p>Sending your message…</p>
+    </div>
+</div>
+
+<section class="apply-section reveal">
 
     <h1>Job Application</h1>
 
@@ -89,7 +97,7 @@
 
         <button type="submit"
                 class="btn btn-primary">
-            Submit Application
+            Submit
         </button>
 
     </form>

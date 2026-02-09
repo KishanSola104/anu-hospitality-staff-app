@@ -2146,50 +2146,66 @@ header {
 /* =====================================================
    JOB APPLICATION FORM (ALIGNED WITH CONTACT FORM)
 ===================================================== */
+/* =====================================================
+   JOB APPLICATION FORM (MATCHED WITH CONTACT FORM)
+===================================================== */
 
 .apply-section {
-    padding: 80px 6%;
-     margin-top: 120px;
-    padding: 80px 6%;
+    padding: 60px 20px 100px;
     background: #ffffff;
+    margin-top: 120px;
 }
 
-.apply-section h1 {
-    text-align: center;
-    font-size: clamp(2rem, 3vw, 2.6rem);
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 40px;
-}
-
+/* Container */
 .apply-form {
-    max-width: 560px;
+    max-width: 900px;
     margin: auto;
-    background: #dadbdd;
-    padding: 46px 40px;
+    background: #f5f7fb;
+    padding: 50px 40px;
     border-radius: 14px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
 
-/* Fields */
-.apply-form .form-group {
-    margin-bottom: 18px;
+/* Heading */
+.apply-section h1 {
+    text-align: center;
+    font-size: 34px;
+    font-weight: 600;
+    margin-bottom: 40px;
+    color: #111;
 }
 
+/* Optional tagline (same as contact) */
+.apply-tagline {
+    text-align: center;
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+/* Form layout */
+.apply-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* Labels */
 .apply-form label {
     font-size: 14px;
     font-weight: 600;
+    color: #222;
     margin-bottom: 6px;
     display: block;
-    color: #222;
 }
 
+/* Inputs & Textarea */
 .apply-form input,
 .apply-form textarea {
     width: 100%;
     padding: 14px 16px;
+    border: 1px solid #e1e1e1;
     border-radius: 6px;
-    border: 1px solid #d6dbe5;
     font-size: 15px;
     outline: none;
     background: #ffffff;
@@ -2197,38 +2213,69 @@ header {
 
 .apply-form textarea {
     resize: vertical;
-    min-height: 100px;
+    min-height: 110px;
 }
 
 .apply-form input:focus,
 .apply-form textarea:focus {
-    border-color: var(--primary);
+    border-color: #0b3c5d;
 }
 
-/* Readonly Job Title */
+/* Readonly field (Job title etc.) */
 .apply-form input[readonly] {
     background: #eef2f8;
     cursor: not-allowed;
 }
 
-/* Submit */
+/* Submit button (same as contact) */
+.apply-form button,
 .apply-form .btn-primary {
-    width: 100%;
+    width: 160px;
     padding: 14px;
+    background: #0b3c5d;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
     margin-top: 10px;
 }
 
+.apply-form button:hover,
+.apply-form .btn-primary:hover {
+    background: #082c45;
+}
+
+/* Success message */
+.apply-success-msg {
+    background: #e9f9ef;
+    color: #1e7e34;
+    border: 1px solid #b7e4c7;
+    padding: 12px;
+    border-radius: 6px;
+}
+
+/* Error message */
+.apply-error-msg {
+    background: #fdecea;
+    color: #b02a37;
+    border: 1px solid #f5c2c7;
+    padding: 12px;
+    border-radius: 6px;
+}
 
 /* ======================
-   RESPONSIVE – FORM
+   RESPONSIVE
 ====================== */
 
 @media (max-width: 576px) {
     .apply-form {
-        padding: 34px 26px;
+        padding: 35px 25px;
     }
 
     .apply-section h1 {
+        font-size: 28px;
         margin-bottom: 30px;
     }
 }
+

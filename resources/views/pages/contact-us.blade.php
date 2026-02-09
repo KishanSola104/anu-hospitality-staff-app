@@ -39,10 +39,10 @@
     <div class="contact-info-grid">
 
         <!-- Call -->
-        <a href="tel:+447700900123" class="contact-info-card reveal">
+        <a href="tel:+447459292378" class="contact-info-card reveal">
             <i class="fa-solid fa-phone"></i>
             <h3>Call</h3>
-            <p>+44 7700 900123</p>
+            <p>+44 7459 292378</p>
         </a>
 
         <!-- Email -->
@@ -54,7 +54,7 @@
 
         <!-- Chat (WhatsApp) -->
         <a
-            href="https://wa.me/447700900123"
+            href="https://wa.me/447459292378"
             target="_blank"
             class="contact-info-card reveal">
             <i class="fa-brands fa-whatsapp"></i>

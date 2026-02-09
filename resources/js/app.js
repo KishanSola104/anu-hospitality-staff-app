@@ -1,7 +1,6 @@
 /* import './bootstrap'; */
 
 document.addEventListener("DOMContentLoaded", () => {
-
     /* =====================================================
        MOBILE NAVIGATION MENU
     ===================================================== */
@@ -24,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
         closeBtn.addEventListener("click", closeMenu);
         overlay.addEventListener("click", closeMenu);
 
-        mobileNav.querySelectorAll("a").forEach(link => {
+        mobileNav.querySelectorAll("a").forEach((link) => {
             link.addEventListener("click", closeMenu);
         });
     }
@@ -36,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentSlide = 0;
 
     if (slides.length) {
-        slides.forEach(slide => {
+        slides.forEach((slide) => {
             const bgImage = slide.getAttribute("data-bg");
             if (bgImage) slide.style.backgroundImage = `url('${bgImage}')`;
         });
@@ -55,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (revealElements.length) {
         const revealOnScroll = () => {
-            revealElements.forEach(el => {
+            revealElements.forEach((el) => {
                 if (el.getBoundingClientRect().top < window.innerHeight - 100) {
                     el.classList.add("active");
                 }
@@ -108,12 +107,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const faqItems = document.querySelectorAll(".faq-item");
 
     if (faqItems.length) {
-        faqItems.forEach(item => {
+        faqItems.forEach((item) => {
             const question = item.querySelector(".faq-question");
             if (!question) return;
 
             question.addEventListener("click", () => {
-                faqItems.forEach(i => {
+                faqItems.forEach((i) => {
                     if (i !== item) i.classList.remove("active");
                 });
                 item.classList.toggle("active");
@@ -129,7 +128,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const postcodeError = document.getElementById("postcodeError");
 
     if (findCleanerBtn && postcodeInput && postcodeError) {
-
         const ukPostcodeRegex = /^([A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2})$/;
 
         findCleanerBtn.addEventListener("click", () => {
@@ -149,8 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            window.location.href =
-                `/booking/domestic?postcode=${encodeURIComponent(postcode)}`;
+            window.location.href = `/booking/domestic?postcode=${encodeURIComponent(postcode)}`;
         });
 
         postcodeInput.addEventListener("input", () => {
@@ -158,38 +155,41 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-
-     /* ===============================
+    /* ===============================
        CONTACT FORM SUBMIT HANDLING
     =============================== */
 
-    const form = document.querySelector(".contact-form-section form");
+    const forms = document.querySelectorAll(
+        ".contact-form-section form, .apply-form",
+    );
+
     const form_overlay = document.getElementById("form-loader-overlay");
     const successMsg = document.getElementById("contact-success");
 
     /* --------
        ON FORM SUBMIT
     -------- */
-    if (form && form_overlay) {
+    if (forms.length && form_overlay) {
+    forms.forEach(form => {
         form.addEventListener("submit", function () {
 
-            // Show loader overlay with blur
+            // Show loader overlay
             form_overlay.classList.add("active");
 
-            // Disable submit button to prevent multiple clicks
+            // Disable submit button
             const btn = form.querySelector("button[type='submit']");
             if (btn) {
                 btn.disabled = true;
                 btn.innerText = "Submitting...";
             }
         });
-    }
+    });
+}
 
     /* --------
        AFTER PAGE RELOAD (SUCCESS MESSAGE)
     -------- */
     if (successMsg) {
-
         // Ensure loader is hidden after reload
         if (form_overlay) {
             form_overlay.classList.remove("active");
@@ -198,7 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Smooth scroll to success message
         successMsg.scrollIntoView({
             behavior: "smooth",
-            block: "center"
+            block: "center",
         });
 
         // Auto hide success message after 6 seconds
@@ -207,5 +207,4 @@ document.addEventListener("DOMContentLoaded", () => {
             successMsg.style.opacity = "0";
         }, 6000);
     }
-
 });

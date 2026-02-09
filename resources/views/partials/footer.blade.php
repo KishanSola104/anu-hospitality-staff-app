@@ -9,11 +9,15 @@
                 <img
                     src="{{ asset('assets/logos/logo.webp') }}"
                     class="footer-logo"
-                    alt="ANU Hospitality Staff Ltd"
-                >
+                    alt="ANU Hospitality Staff Ltd">
 
                 <p>
-                    United Kingdom & London Museum<br>
+                    35 Peel Road
+                    North Wembley
+                    Wembley
+                    Greater London
+                    HA9 7LY
+                    United Kingdom<br>
 
                     <a class="hover-underline" href="mailto:info@anuhospitality.com">
                         info@anuhospitality.com
@@ -58,7 +62,7 @@
                         <i class="fa-brands fa-facebook-f"></i>
                     </a>
 
-                    <a href="https://www.linkedin.com/" target="_blank" aria-label="LinkedIn">
+                    <a href="https://www.linkedin.com/in/anushika-bajpai-0974813ab/" target="_blank" aria-label="LinkedIn">
                         <i class="fa-brands fa-linkedin-in"></i>
                     </a>
 
@@ -82,8 +86,7 @@
             <a
                 href="https://www.linkedin.com/company/shreeji-it-solution-pvt-ltd"
                 target="_blank"
-                class="hover-underline"
-            >
+                class="hover-underline">
                 Shreeji IT Solutions Pvt. Ltd.
             </a>
         </p>
