@@ -11,16 +11,22 @@
 
      <!-- GLOBAL STEP & PAYMENT LOADER -->
 <div class="step-loader" ng-class="{ active: vm.isLoading }">
+
     <div class="loader-backdrop"></div>
 
     <div class="loader-box">
+
         <img src="{{ asset('assets/images/stripe-logo.svg') }}"
              alt="Stripe Secure Payment"
              class="stripe-logo"
              ng-if="vm.isPayment">
 
         <div class="spinner"></div>
-        <p>@{{ vm.loaderText }}</p>
+
+        <p class="loader-text">
+            @{{ vm.loaderText }}
+        </p>
+
     </div>
 </div>
 

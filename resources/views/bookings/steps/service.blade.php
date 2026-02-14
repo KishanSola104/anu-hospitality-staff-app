@@ -2,7 +2,7 @@
 
     <h3>Service Information</h3>
 
-    {{-- Postcode (read-only from URL) --}}
+    {{-- Postcode --}}
     <div class="booking-field">
         <label>Postcode <span class="required">*</span></label>
         <input type="text"
@@ -17,7 +17,8 @@
         <div class="booking-field">
             <label>Number of Bedrooms <span class="required">*</span></label>
             <select ng-model="vm.form.bedrooms"
-                    ng-change="vm.recalculate()" id="field-bedrooms">
+                    ng-change="vm.recalculate()"
+                    id="field-bedrooms">
                 <option value="">Select...</option>
                 <option ng-repeat="n in [0,1,2,3,4,5,6,7,8]" value="@{{ n }}">
                     @{{ n }}
@@ -32,7 +33,8 @@
         <div class="booking-field">
             <label>Number of Bathrooms <span class="required">*</span></label>
             <select ng-model="vm.form.bathrooms"
-                    ng-change="vm.recalculate()" id="field-bathrooms">
+                    ng-change="vm.recalculate()"
+                    id="field-bathrooms">
                 <option value="">Select...</option>
                 <option ng-repeat="n in [0,1,2,3,4,5,6]" value="@{{ n }}">
                     @{{ n }}
@@ -46,7 +48,7 @@
 
     </div>
 
-    {{-- Included areas info --}}
+    {{-- Included Areas --}}
     <div class="info-box">
         Your cleaner will also clean your kitchen, lounge and common areas.
     </div>
@@ -99,7 +101,39 @@
 
     </div>
 
-    {{-- Oven warning --}}
+    {{-- Cleaning Products --}}
+    <h4>Cleaning Products</h4>
+
+    <div class="info-box">
+        Includes sprays and cloths. Cleaner cannot bring vacuum, mop or bucket.
+    </div>
+
+    <div class="radio-group">
+
+        <label>
+            <input type="radio"
+                   ng-model="vm.form.cleaning_products"
+                   value="provide"
+                   ng-change="vm.recalculate()"
+                   required>
+            I will provide cleaning materials
+        </label>
+
+        <label>
+            <input type="radio"
+                   ng-model="vm.form.cleaning_products"
+                   value="bring"
+                   ng-change="vm.recalculate()">
+            Cleaner should bring cleaning materials (+£6)
+        </label>
+
+    </div>
+
+    <span class="error-text" ng-show="vm.errors.cleaning_products">
+        @{{ vm.errors.cleaning_products }}
+    </span>
+
+    {{-- Oven Warning --}}
     <div class="warning-box" ng-show="vm.form.extras.oven">
         💷 Oven cleaning adds £60 (includes specialised products).
     </div>
@@ -113,17 +147,17 @@
         based on your home details.
     </div>
 
-    {{-- Hour selection --}}
+    {{-- Hour Selection --}}
     <div class="hours-grid" id="field-hours">
         <button type="button"
-        ng-repeat="h in vm.hoursOptions"
-        ng-class="{
-            active: vm.form.hours === h,
-            recommended: h === vm.recommendedHours
-        }"
-        ng-click="vm.form.hours = h">
-    @{{ h }}h
-</button>
+                ng-repeat="h in vm.hoursOptions"
+                ng-class="{
+                    active: vm.form.hours === h,
+                    recommended: h === vm.recommendedHours
+                }"
+                ng-click="vm.form.hours = h; vm.calculatePrice();">
+            @{{ h }}h
+        </button>
     </div>
 
     <span class="error-text" ng-show="vm.errors.hours">

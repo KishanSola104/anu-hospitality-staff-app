@@ -188,3 +188,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         )->name('applications.status');
     });
 });
+
+
+/* Booking success pdf download */
+Route::get('/booking/{booking}/download', 
+    [BookingController::class, 'download'])
+    ->name('booking.download')
+    ->middleware('auth');
+

@@ -11,8 +11,12 @@
             ===================== */
             vm.step = 1;
 
+            const postcodeFromURL =
+                new URLSearchParams(window.location.search).get("postcode") ||
+                "";
+
             vm.form = {
-                postcode: new URLSearchParams(window.location.search).get("postcode") || "",
+                postcode: postcodeFromURL,
 
                 /* ---------- STEP 1 ---------- */
                 bedrooms: null,
@@ -26,13 +30,14 @@
                 },
                 hasPets: false,
                 hours: null,
+                cleaning_products: "provide", // default
 
                 /* ---------- STEP 2 ---------- */
                 address: {
                     full_name: "",
                     full_address: "",
                     city: "",
-                    postcode: new URLSearchParams(window.location.search).get("postcode") || "",
+                    postcode: postcodeFromURL,
                     mobile: "",
                     alt_mobile: "",
                     instructions: "",
@@ -52,27 +57,48 @@
             vm.errors = {};
 
             /* =====================
-               PRICE (IMPORTANT)
+   LOADER STATE
+===================== */
+            vm.isLoading = false;
+            vm.isPayment = false;
+            vm.loaderText = "";
+
+            /* =====================
+               PRICE CONFIG
             ===================== */
+            const HOURLY_RATE = 20;
+            const OVEN_PRICE = 60;
+            const CLEANING_PRODUCTS_PRICE = 6;
+
             vm.price = {
                 base: 0,
                 discount: 0,
                 total: 0,
             };
 
-            const HOURLY_RATE = 20;
-            const OVEN_PRICE = 60;
-
+            /* =====================
+               PRICE CALCULATION
+            ===================== */
             vm.calculatePrice = function () {
-                let base = vm.form.hours * HOURLY_RATE;
+                let total = 0;
 
-                if (vm.form.extras.oven) {
-                    base += OVEN_PRICE;
+                // Hourly
+                if (vm.form.hours) {
+                    total += parseInt(vm.form.hours) * 20;
                 }
 
-                vm.price.base = base;
-                vm.price.discount = 0;
-                vm.price.total = base;
+                // Oven
+                if (vm.form.extras.oven) {
+                    total += 60;
+                }
+
+                // Cleaning products
+                if (vm.form.cleaning_products === "bring") {
+                    total += 6;
+                }
+
+                vm.price.base = total;
+                vm.price.total = total;
             };
 
             /* =====================
@@ -113,7 +139,7 @@
             ];
 
             /* =====================
-               HOURS CALCULATION
+               HOURS RECOMMENDATION
             ===================== */
             vm.recalculate = function () {
                 let hours = 1;
@@ -142,7 +168,7 @@
             };
 
             /* =====================
-               STEP VALIDATIONS
+               STEP 1 VALIDATION
             ===================== */
             vm.validateStep1 = function () {
                 vm.errors = {};
@@ -174,9 +200,18 @@
                     return false;
                 }
 
+                if (!vm.form.cleaning_products) {
+                    vm.errors.cleaning_products =
+                        "Please select cleaning materials option.";
+                    return false;
+                }
+
                 return true;
             };
 
+            /* =====================
+               STEP 2 VALIDATION
+            ===================== */
             vm.validateStep2 = function () {
                 vm.errors = {};
 
@@ -213,6 +248,9 @@
                 return true;
             };
 
+            /* =====================
+               STEP 3 VALIDATION
+            ===================== */
             vm.validateStep3 = function () {
                 vm.errors = {};
 
@@ -247,7 +285,9 @@
 
                     el.scrollIntoView({ behavior: "smooth", block: "center" });
 
-                    const input = el.querySelector("input, textarea, select, button");
+                    const input = el.querySelector(
+                        "input, textarea, select, button",
+                    );
                     if (input) input.focus();
                 }, 100);
             };
@@ -274,9 +314,14 @@
             };
 
             /* =====================
-               💳 PAYMENT (FINAL & WORKING)
+               PAYMENT
             ===================== */
             vm.pay = function () {
+                // Activate loader
+                vm.isLoading = true;
+                vm.isPayment = true;
+                vm.loaderText = "Redirecting to secure payment...";
+
                 fetch("/booking/pay", {
                     method: "POST",
                     headers: {
@@ -293,12 +338,17 @@
                     .then((res) => res.json())
                     .then((data) => {
                         if (data.url) {
-                            window.location.href = data.url;
+                            // Small delay for better UX
+                            setTimeout(() => {
+                                window.location.href = data.url;
+                            }, 800);
                         } else {
+                            vm.isLoading = false;
                             alert("Payment initialization failed.");
                         }
                     })
                     .catch(() => {
+                        vm.isLoading = false;
                         alert("Something went wrong. Please try again.");
                     });
             };

@@ -24,6 +24,13 @@
                 <span ng-if="!vm.hasExtras()">—</span>
             </p>
 
+            <p>
+                <strong>Cleaning Materials:</strong>
+                @{{ vm.form.cleaning_products === 'bring' 
+                    ? 'Cleaner will bring (+£6)' 
+                    : 'Customer will provide' }}
+            </p>
+
             <p><strong>Pets:</strong> @{{ vm.form.hasPets ? 'Yes' : 'No' }}</p>
             <p><strong>Hours selected:</strong> @{{ vm.form.hours }}h</p>
         </div>
@@ -58,16 +65,17 @@
 
             <p>
                 @{{ vm.form.hours }}h × £20.00 =
-                <strong>£@{{ vm.price.base }}</strong>
+                <strong>£@{{ vm.form.hours * 20 }}</strong>
             </p>
 
             <p ng-if="vm.form.extras.oven">
-                Oven cleaning: <strong>£60.00</strong>
+                Oven cleaning:
+                <strong>£60.00</strong>
             </p>
 
-            <p ng-if="vm.isFirstTime">
-                First-time customer discount:
-                <strong>−£@{{ vm.price.discount }}</strong>
+            <p ng-if="vm.form.cleaning_products === 'bring'">
+                Cleaning materials (cleaner brings):
+                <strong>£6.00</strong>
             </p>
 
             <hr>

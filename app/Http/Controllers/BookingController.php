@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -136,4 +137,26 @@ class BookingController extends Controller
 
         return view('bookings.cancel', compact('booking'));
     }
+
+
+ /* Booking PDF Download */
+
+public function download(Booking $booking)
+{
+    if ($booking->payment_status !== 'paid') {
+        abort(403);
+    }
+
+    $pdf = Pdf::loadView('bookings.pdf', compact('booking'));
+
+    // Clean filename: Booking-6-KishanSolanki-2026-02-27.pdf
+    $fileName = 'Booking-' . $booking->id . '-' .
+        preg_replace('/\s+/', '', $booking->full_name) . '-' .
+        \Carbon\Carbon::parse($booking->preferred_date)->format('Y-m-d') .
+        '.pdf';
+
+    return $pdf->download($fileName);
+}
+
+
 }
