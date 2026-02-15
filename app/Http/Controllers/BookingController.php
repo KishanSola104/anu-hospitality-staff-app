@@ -11,6 +11,17 @@ use Stripe\Checkout\Session;
 
 class BookingController extends Controller
 {
+
+    public function index()
+    {
+        $bookings = Booking::where('user_id', Auth::id())
+            ->latest()
+            ->get();
+
+        return view('bookings.index', compact('bookings'));
+    }
+
+
     /**
      * Show booking page
      */
@@ -102,7 +113,6 @@ class BookingController extends Controller
             return response()->json([
                 'url' => $session->url
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'error' => $e->getMessage()
@@ -113,16 +123,32 @@ class BookingController extends Controller
     /**
      * Payment success
      */
-    public function success(Booking $booking)
+    public function success(Request $request, Booking $booking)
     {
-        if ($booking->payment_status !== 'paid') {
-            $booking->update([
-                'payment_status' => 'paid',
-            ]);
-        }
+        Stripe::setApiKey(config('services.stripe.secret'));
 
-        return view('bookings.success', compact('booking'));
+        try {
+            $session = Session::retrieve($booking->stripe_session_id);
+
+            if ($session->payment_status === 'paid') {
+
+                if ($booking->payment_status !== 'paid') {
+                    $booking->update([
+                        'payment_status' => 'paid',
+                    ]);
+                }
+
+                return view('bookings.success', compact('booking'));
+            } else {
+
+                return redirect()->route('booking.cancel', $booking);
+            }
+        } catch (\Exception $e) {
+
+            return redirect()->route('booking.cancel', $booking);
+        }
     }
+
 
     /**
      * Payment cancelled
@@ -139,24 +165,27 @@ class BookingController extends Controller
     }
 
 
- /* Booking PDF Download */
+    /* Booking PDF Download */
 
-public function download(Booking $booking)
-{
-    if ($booking->payment_status !== 'paid') {
-        abort(403);
+    public function download(Booking $booking)
+    {
+        // Ensure booking belongs to logged in user
+        if ($booking->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        // Ensure payment completed
+        if ($booking->payment_status !== 'paid') {
+            abort(403);
+        }
+
+        $pdf = Pdf::loadView('bookings.pdf', compact('booking'));
+
+        $fileName = 'Booking-' . $booking->id . '-' .
+            preg_replace('/\s+/', '', $booking->full_name) . '-' .
+            \Carbon\Carbon::parse($booking->preferred_date)->format('Y-m-d') .
+            '.pdf';
+
+        return $pdf->download($fileName);
     }
-
-    $pdf = Pdf::loadView('bookings.pdf', compact('booking'));
-
-    // Clean filename: Booking-6-KishanSolanki-2026-02-27.pdf
-    $fileName = 'Booking-' . $booking->id . '-' .
-        preg_replace('/\s+/', '', $booking->full_name) . '-' .
-        \Carbon\Carbon::parse($booking->preferred_date)->format('Y-m-d') .
-        '.pdf';
-
-    return $pdf->download($fileName);
-}
-
-
 }

@@ -114,6 +114,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/booking/cancel/{booking}', [BookingController::class, 'cancel'])
         ->name('booking.cancel');
+
+        Route::get('/booking/{booking}/download',
+        [BookingController::class, 'download'])
+        ->name('booking.download');
 });
 
 /* ======================
@@ -189,10 +193,4 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 });
 
-
-/* Booking success pdf download */
-Route::get('/booking/{booking}/download', 
-    [BookingController::class, 'download'])
-    ->name('booking.download')
-    ->middleware('auth');
 
