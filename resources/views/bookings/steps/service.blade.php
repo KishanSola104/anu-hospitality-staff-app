@@ -160,8 +160,10 @@
         </button>
     </div>
 
-    <span class="error-text" ng-show="vm.errors.hours">
-        @{{ vm.errors.hours }}
-    </span>
+      <span class="warning-text" 
+      ng-show="vm.form.hours < vm.recommendedHours">
+    We recommend at least @{{ vm.recommendedHours }} hours for better results.
+</span>
+
 
 </div>

@@ -171,43 +171,43 @@
                STEP 1 VALIDATION
             ===================== */
             vm.validateStep1 = function () {
-                vm.errors = {};
+    vm.errors = {};
 
-                if (!vm.form.bedrooms) {
-                    vm.errors.bedrooms = "Please select number of bedrooms.";
-                    vm.scrollToError("field-bedrooms");
-                    return false;
-                }
+    if (!vm.form.bedrooms) {
+        vm.errors.bedrooms = "Please select number of bedrooms.";
+        vm.scrollToError("field-bedrooms");
+        return false;
+    }
 
-                if (!vm.form.bathrooms) {
-                    vm.errors.bathrooms = "Please select number of bathrooms.";
-                    vm.scrollToError("field-bathrooms");
-                    return false;
-                }
+    if (!vm.form.bathrooms) {
+        vm.errors.bathrooms = "Please select number of bathrooms.";
+        vm.scrollToError("field-bathrooms");
+        return false;
+    }
 
-                if (!vm.form.hours) {
-                    vm.errors.hours = "Please select cleaning hours.";
-                    vm.scrollToError("field-hours");
-                    return false;
-                }
+    if (!vm.form.hours) {
+        vm.errors.hours = "Please select cleaning hours.";
+        vm.scrollToError("field-hours");
+        return false;
+    }
 
-                if (vm.form.hours < vm.recommendedHours) {
-                    vm.errors.hours =
-                        "Minimum " +
-                        vm.recommendedHours +
-                        " hours required based on your home details.";
-                    vm.scrollToError("field-hours");
-                    return false;
-                }
+    // ⚠️ Show warning but allow continue
+    if (vm.form.hours < vm.recommendedHours) {
+        vm.errors.hours =
+            "We recommend at least " +
+            vm.recommendedHours +
+            " hours based on your home details. You may continue, but cleaning quality may be affected.";
+    }
 
-                if (!vm.form.cleaning_products) {
-                    vm.errors.cleaning_products =
-                        "Please select cleaning materials option.";
-                    return false;
-                }
+    if (!vm.form.cleaning_products) {
+        vm.errors.cleaning_products =
+            "Please select cleaning materials option.";
+        return false;
+    }
 
-                return true;
-            };
+    return true; // Always allow if above conditions are valid
+};
+
 
             /* =====================
                STEP 2 VALIDATION
@@ -358,4 +358,12 @@
             ===================== */
             vm.recalculate();
         });
+
+
+        /* Animation js */
+        
+
 })();
+
+
+
