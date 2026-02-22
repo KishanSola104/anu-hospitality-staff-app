@@ -40,7 +40,7 @@
     </div>
 
     {{-- STEP 1 --}}
-    <section ng-show="vm.step === 1">
+    <section  ng-show="vm.step === 1">
         @include('bookings.steps.service')
         <button ng-click="vm.next()">Continue</button>
     </section>

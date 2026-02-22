@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Auth;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\BookingUserConfirmation;
+use App\Mail\BookingAdminNotification;
+
 class BookingController extends Controller
 {
 
@@ -136,6 +140,16 @@ class BookingController extends Controller
                     $booking->update([
                         'payment_status' => 'paid',
                     ]);
+
+                    // Send confirmation email to user
+                      // Send email to user
+    Mail::to($booking->user->email)
+        ->send(new BookingUserConfirmation($booking));
+
+    // Send email to admin
+    Mail::to('info@anuhospitalitystaff.com')
+        ->send(new BookingAdminNotification($booking));
+
                 }
 
                 return view('bookings.success', compact('booking'));

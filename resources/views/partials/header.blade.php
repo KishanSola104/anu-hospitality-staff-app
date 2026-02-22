@@ -7,7 +7,7 @@
             <!-- Left: Contact Info -->
             <div class="contact-info">
                 <a href="mailto:info@anuhospitality.com">
-                    <i class="fa-solid fa-envelope"></i> info@anuhospitality.com
+                    <i class="fa-solid fa-envelope"></i> info@anuhospitalitystaff.com
                 </a>
                 <a href="tel:+447459292378">
                     <i class="fa-solid fa-phone"></i> +44 7459 292378

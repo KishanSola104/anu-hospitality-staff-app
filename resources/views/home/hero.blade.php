@@ -23,10 +23,14 @@
     </div>
 
     <!-- Constant Center Button -->
-    <div class="hero-cta">
-        <a href="{{ route('contact') }}#contact-form" class="btn-hero">
-            Get Quote
-        </a>
-    </div>
+<div class="hero-cta">
+    <a href="{{ route('contact') }}#contact-form" class="btn-hero primary-btn">
+        Get Quote
+    </a>
+
+    <a href="{{ route('domestic.clean') }}" class="btn-hero secondary-btn">
+        Domestic
+    </a>
+</div>
 
 </section>
