@@ -2,11 +2,12 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Booking Receipt</title>
+    <title>Booking Invoice</title>
+
     <style>
         body {
             font-family: DejaVu Sans, sans-serif;
-            font-size: 13px;
+            font-size: 12px;
             color: #333;
         }
 
@@ -14,125 +15,201 @@
             padding: 30px;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
+        .header-table,
+        .info-table,
+        .details-table,
+        .payment-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .header-table td {
+            vertical-align: top;
         }
 
         .company-name {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
+            color: #1a237e;
         }
 
-        .subtitle {
-            font-size: 13px;
-            color: #555;
+        .invoice-title {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: right;
+            color: #1a237e;
         }
 
-        .section {
+        .section-title {
+            background: #f2f4f8;
+            font-weight: bold;
+            padding: 6px;
+            border: 1px solid #ddd;
             margin-top: 20px;
         }
 
-        .section h4 {
-            margin-bottom: 8px;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 4px;
+        .info-table td {
+            padding: 6px;
+            border: 1px solid #ddd;
         }
 
-        .row {
-            margin-bottom: 6px;
+        .details-table th {
+            background: #1a237e;
+            color: #fff;
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
         }
 
-        .price {
-            font-size: 16px;
+        .details-table td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .payment-table td {
+            padding: 6px;
+            border: 1px solid #ddd;
+        }
+
+        .grand-total {
             font-weight: bold;
+            font-size: 14px;
         }
 
         .footer {
-            margin-top: 30px;
-            font-size: 12px;
-            color: #777;
+            margin-top: 40px;
+            font-size: 11px;
             text-align: center;
+            color: #666;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
         }
 
-        hr {
-            margin: 15px 0;
+        .green-note {
+            margin-top: 20px;
+            font-size: 11px;
+            background: #f8fdf8;
+            border: 1px solid #cdeccd;
+            padding: 10px;
         }
     </style>
 </head>
+
 <body>
 
 <div class="container">
 
     <!-- HEADER -->
-    <div class="header">
-        <div class="company-name">Anu Hospitality Staff Ltd</div>
-        <div class="subtitle">Domestic Cleaning Services</div>
-        <div class="subtitle">Official Booking Receipt</div>
-    </div>
+    <table class="header-table">
+        <tr>
+            <td width="60%">
+              
+                <div class="company-name">Anu Hospitality Staff Ltd</div>
+                35 Peel Road, North Wembley, London HA9 7LY<br>
+                Email: info@anuhospitalitystaff.com<br>
+                Website: www.anuhospitalitystaff.com
+            </td>
 
-    <hr>
-
-    <div class="row"><strong>Booking ID:</strong> #{{ $booking->id }}</div>
-    <div class="row"><strong>Invoice Date:</strong> {{ now()->format('d M Y') }}</div>
+            <td width="40%" class="text-right">
+                <div class="invoice-title">INVOICE</div>
+                <strong>Invoice No:</strong> DC-{{ $booking->id }}<br>
+                <strong>Invoice Date:</strong> {{ now()->format('d M Y') }}<br>
+                <strong>Service Date:</strong> {{ \Carbon\Carbon::parse($booking->preferred_date)->format('d M Y') }}<br>
+                <strong>Status:</strong> {{ ucfirst($booking->payment_status) }}
+            </td>
+        </tr>
+    </table>
 
     <!-- CUSTOMER INFO -->
-    <div class="section">
-        <h4>Customer Information</h4>
-        <div class="row"><strong>Name:</strong> {{ $booking->full_name }}</div>
-        <div class="row"><strong>Mobile:</strong> {{ $booking->mobile }}</div>
+    <div class="section-title">Customer Information</div>
 
-        @if($booking->alt_mobile)
-            <div class="row"><strong>Alt Mobile:</strong> {{ $booking->alt_mobile }}</div>
-        @endif
-
-        <div class="row"><strong>Address:</strong> {{ $booking->address }}, {{ $booking->city }}</div>
-        <div class="row"><strong>Postcode:</strong> {{ $booking->address_postcode }}</div>
-    </div>
+    <table class="info-table">
+        <tr>
+            <td><strong>Name</strong></td>
+            <td>{{ $booking->full_name }}</td>
+            <td><strong>Mobile</strong></td>
+            <td>{{ $booking->mobile }}</td>
+        </tr>
+        <tr>
+            <td><strong>Address</strong></td>
+            <td colspan="3">
+                {{ $booking->address }}, {{ $booking->city }} - {{ $booking->address_postcode }}
+            </td>
+        </tr>
+    </table>
 
     <!-- SERVICE DETAILS -->
-    <div class="section">
-        <h4>Service Details</h4>
-        <div class="row"><strong>Bedrooms:</strong> {{ $booking->bedrooms }}</div>
-        <div class="row"><strong>Bathrooms:</strong> {{ $booking->bathrooms }}</div>
-        <div class="row"><strong>Cleaning Hours:</strong> {{ $booking->hours }}</div>
-        <div class="row"><strong>Has Pets:</strong> {{ $booking->has_pets ? 'Yes' : 'No' }}</div>
-        <div class="row"><strong>Access Method:</strong> {{ $booking->access_method }}</div>
-        <div class="row"><strong>Cleaning Materials:</strong> {{ ucfirst($booking->cleaning_materials ?? 'N/A') }}</div>
-    </div>
+    <div class="section-title">Service Details</div>
 
-    <!-- EXTRAS -->
-    @if($booking->extras)
-        <div class="section">
-            <h4>Extra Services</h4>
-            @foreach($booking->extras as $key => $value)
-                @if($value)
-                    <div class="row">• {{ ucfirst($key) }}</div>
-                @endif
-            @endforeach
-        </div>
-    @endif
-
-    <!-- SCHEDULE -->
-    <div class="section">
-        <h4>Schedule</h4>
-        <div class="row">
-            <strong>Preferred Date:</strong>
-            {{ \Carbon\Carbon::parse($booking->preferred_date)->format('d M Y') }}
-        </div>
-        <div class="row"><strong>Arrival Window:</strong> {{ $booking->arrival_window }}</div>
-    </div>
+    <table class="details-table">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Bedrooms</td>
+                <td>{{ $booking->bedrooms }}</td>
+            </tr>
+            <tr>
+                <td>Bathrooms</td>
+                <td>{{ $booking->bathrooms }}</td>
+            </tr>
+            <tr>
+                <td>Cleaning Hours</td>
+                <td>{{ $booking->hours }}</td>
+            </tr>
+            <tr>
+                <td>Pets</td>
+                <td>{{ $booking->has_pets ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <td>Access Method</td>
+                <td>{{ $booking->access_method }}</td>
+            </tr>
+            <tr>
+                <td>Cleaning Materials</td>
+                <td>{{ ucfirst($booking->cleaning_materials ?? 'N/A') }}</td>
+            </tr>
+        </tbody>
+    </table>
 
     <!-- PAYMENT -->
-    <div class="section">
-        <h4>Payment Summary</h4>
-        <div class="row"><strong>Base Price:</strong> £{{ number_format($booking->base_price, 2) }}</div>
-        <div class="row"><strong>Discount:</strong> £{{ number_format($booking->discount, 2) }}</div>
-        <div class="row price"><strong>Total Paid:</strong> £{{ number_format($booking->total_price, 2) }}</div>
-        <div class="row"><strong>Status:</strong> {{ ucfirst($booking->payment_status) }}</div>
+    <div class="section-title">Payment Summary</div>
+
+    <table class="payment-table">
+        <tr>
+            <td><strong>Base Price</strong></td>
+            <td class="text-right">£{{ number_format($booking->base_price, 2) }}</td>
+        </tr>
+
+        <tr>
+            <td><strong>Discount</strong></td>
+            <td class="text-right">£{{ number_format($booking->discount, 2) }}</td>
+        </tr>
+
+        <tr class="grand-total">
+            <td>Total Paid</td>
+            <td class="text-right">£{{ number_format($booking->total_price, 2) }}</td>
+        </tr>
+    </table>
+
+    <!-- GREEN INITIATIVE -->
+    <div class="green-note">
+        <strong>Go Green Initiative:</strong> For first-time bookings, we plant a tree as part of our sustainability commitment.
+        Repeat customers receive a personalised tree growth update video.
     </div>
 
+    <!-- FOOTER -->
     <div class="footer">
+        
         Thank you for choosing Anu Hospitality Staff Ltd.<br>
         This document serves as your official booking confirmation.
     </div>
